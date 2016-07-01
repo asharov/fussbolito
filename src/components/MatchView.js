@@ -15,6 +15,9 @@ const MatchView = React.createClass({
     startGame: PropTypes.func.isRequired
   },
 
+  buttonColor(gameInProgress) {
+    return gameInProgress ? 'red' : 'green'
+  },
   render() {
     console.log(this.props.gameInProgress)
     return (
@@ -25,7 +28,7 @@ const MatchView = React.createClass({
         </View>
         <View style={{alignItems: 'center'}}>
           <TouchableOpacity onPress={this.go}>
-            <View style={styles.roundButton}/>
+            <View style={[styles.roundButton, {backgroundColor: this.buttonColor(this.props.gameInProgress)}]}/>
           </TouchableOpacity>
         </View>
         <View style={{flex: 1, flexDirection: 'row'}}>

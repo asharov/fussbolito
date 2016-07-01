@@ -1,3 +1,5 @@
+import { combineReducers } from 'redux'
+
 function initialPlayerState() {
     return {
       name: '',
@@ -20,11 +22,31 @@ const initialState = {
 
 export const START_GAME = "START_GAME"
 
-export default function rootReducer(state = initialState, action) {
+function gameInProgressReducer(state = initialState.gameInProgress, action) {
   switch (action.type) {
     case START_GAME:
-      return Object.assign({}, state, { gameInProgress: true })
+      return true
     default:
       return state
   }
 }
+
+function teamReducer(teamAttr) {
+  return function(state = initialState[teamAttr], action) {
+    switch (action.type) {
+      case START_GAME:
+        return {
+          attacker: Object.assign({}, state.attacker, { name: action[teamAttr].attackerName }),
+          defender: Object.assign({}, state.defender, { name: action[teamAttr].defenderName })
+        }
+      default:
+        return state
+    }
+  }
+}
+
+export default combineReducers({
+  gameInProgress: gameInProgressReducer,
+  team1: teamReducer('team1'),
+  team2: teamReducer('team2')
+})

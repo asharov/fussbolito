@@ -19,7 +19,7 @@ const MatchView = React.createClass({
     return gameInProgress ? 'red' : 'green'
   },
   render() {
-    console.log(this.props.gameInProgress)
+    console.log(this.props)
     return (
       <View style={{flex: 1}}>
         <View style={{flex: 1, flexDirection: 'row'}}>
@@ -39,7 +39,16 @@ const MatchView = React.createClass({
     )
   },
   go() {
-    this.props.startGame()
+    this.props.startGame({
+      team1: {
+        attackerName: 'A1',
+        defenderName: 'D1'
+      },
+      team2: {
+        attackerName: 'A2',
+        defenderName: 'D2'
+      }
+    })
   }
 })
 
@@ -64,13 +73,15 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
   return {
-    gameInProgress: state.gameInProgress
+    gameInProgress: state.gameInProgress,
+    team1: state.team1,
+    team2: state.team2
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    startGame: () => dispatch({type: START_GAME})
+    startGame: (params) => dispatch(Object.assign({type: START_GAME}, params))
   }
 }
 

@@ -11,12 +11,17 @@ import {
   Text,
   View
 } from 'react-native';
+import {Provider} from 'react-redux'
+
 import MatchView from './src/components/MatchView'
+import store from './src/store'
 
 class Fussbolito extends Component {
   render() {
     return (
-      <MatchView/>
+      <Provider store={store}>
+        <MatchView/>
+      </Provider>
     );
   }
 }

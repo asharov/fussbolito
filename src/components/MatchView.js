@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
+import { connect } from 'react-redux'
 import {
   StyleSheet,
   View,
@@ -6,8 +7,16 @@ import {
   TouchableOpacity
 } from 'react-native'
 
+import { START_GAME } from './../reducers/rootReducer'
+
 const MatchView = React.createClass({
+  propTypes: {
+    gameInProgress: PropTypes.bool.isRequired,
+    startGame: PropTypes.func.isRequired
+  },
+
   render() {
+    console.log(this.props.gameInProgress)
     return (
       <View style={{flex: 1}}>
         <View style={{flex: 1, flexDirection: 'row'}}>
@@ -27,7 +36,7 @@ const MatchView = React.createClass({
     )
   },
   go() {
-    console.log('Boo!')
+    this.props.startGame()
   }
 })
 
@@ -50,4 +59,16 @@ const styles = StyleSheet.create({
   }
 })
 
-export default MatchView
+function mapStateToProps(state) {
+  return {
+    gameInProgress: state.gameInProgress
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    startGame: () => dispatch({type: START_GAME})
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MatchView)

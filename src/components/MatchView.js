@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import {
   StyleSheet,
   View,
+  Text,
   TextInput,
   TouchableOpacity
 } from 'react-native'
@@ -28,11 +29,12 @@ const MatchView = React.createClass({
     const team2 = this.props.team2
     return (
       <View style={{flex: 1}}>
-        <View style={{flex: 1, flexDirection: 'row'}}>
+        <View style={styles.teamContainer}>
           <PlayerView editable={playerEditable}
                       name={team1.attacker.name}
                       onNameChange={this.updatePlayerName('team1', 'attacker')}
                       onTap={this.increasePlayerScore('team1', 'attacker')}/>
+          <Text style={styles.teamScore}>{this.props.team1Score}</Text>
           <PlayerView editable={playerEditable}
                       name={team1.defender.name}
                       onNameChange={this.updatePlayerName('team1', 'defender')}
@@ -43,11 +45,12 @@ const MatchView = React.createClass({
             <View style={[styles.roundButton, {backgroundColor: this.buttonColor(this.props.gameInProgress)}]}/>
           </TouchableOpacity>
         </View>
-        <View style={{flex: 1, flexDirection: 'row'}}>
+        <View style={styles.teamContainer}>
           <PlayerView editable={playerEditable}
                       name={team2.attacker.name}
                       onNameChange={this.updatePlayerName('team2', 'attacker')}
                       onTap={this.increasePlayerScore('team2', 'attacker')}/>
+          <Text style={styles.teamScore}>{this.props.team2Score}</Text>
           <PlayerView editable={playerEditable}
                       name={team2.defender.name}
                       onNameChange={this.updatePlayerName('team2', 'defender')}
@@ -81,12 +84,21 @@ const MatchView = React.createClass({
 })
 
 const styles = StyleSheet.create({
+  teamContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
   roundButton: {
     borderRadius: 30,
     width: 60,
     height: 60,
     backgroundColor: 'green',
     alignSelf: 'center'
+  },
+  teamScore: {
+    fontSize: 30,
+    fontWeight: 'bold'
   }
 })
 
@@ -94,7 +106,9 @@ function mapStateToProps(state) {
   return {
     gameInProgress: state.gameInProgress,
     team1: state.team1,
-    team2: state.team2
+    team2: state.team2,
+    team1Score: state.team1.attacker.score + state.team1.defender.score,
+    team2Score: state.team2.attacker.score + state.team2.defender.score
   }
 }
 

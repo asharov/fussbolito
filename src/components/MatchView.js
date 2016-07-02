@@ -55,6 +55,7 @@ const MatchView = React.createClass({
                       onNameChange={this.updatePlayerName('team2', 'defender')}
                       onTap={this.increasePlayerScore('team2', 'defender')}/>
         </View>
+        <View style={{flex: 1}} />
       </View>
     )
   },

@@ -73,7 +73,6 @@ function playedGame(state) {
 
 export default function rootReducer(state = initialState, action) {
   const nextState = gameReducer(state, action)
-  console.log(nextState);
   team1Score = nextState.team1.attacker.score + nextState.team1.defender.score
   team2Score = nextState.team2.attacker.score + nextState.team2.defender.score
   if (team1Score === 6 || team2Score === 6) {

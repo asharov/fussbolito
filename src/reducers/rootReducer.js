@@ -36,8 +36,8 @@ function playerReducer(teamAttr, playerAttr) {
   return function(state = initialState[teamAttr][playerAttr], action) {
     switch (action.type) {
       case UPDATE_PLAYER_NAME:
-        if (action[teamAttr] && action[teamAttr][playerAttr]) {
-          return Object.assign({}, state, { name: action[teamAttr][playerAttr].name})
+        if (action.team === teamAttr && action.role === playerAttr) {
+          return Object.assign({}, state, { name: action.name})
         } else {
           return state
         }

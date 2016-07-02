@@ -55,15 +55,13 @@ const MatchView = React.createClass({
   go() {
     this.props.startGame()
   },
-  updatePlayerName(teamAttr, roleAttr) {
+  updatePlayerName(team, role) {
     const update = this.props.updatePlayerName
     return function(name) {
       update({
-        [teamAttr]: {
-          [roleAttr]: {
-            name: name
-          }
-        }
+        team: team,
+        role: role,
+        name: name
       })
     }
   }

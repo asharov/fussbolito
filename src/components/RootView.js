@@ -1,12 +1,12 @@
 import React from 'react'
 
 import {
-  Image,
-  View
+  Image
 } from 'react-native'
 
 import TabNavigator from 'react-native-tab-navigator'
 import MatchView from './MatchView'
+import RankingView from './RankingView'
 
 const RootView = React.createClass({
   getInitialState() {
@@ -30,7 +30,7 @@ const RootView = React.createClass({
           title="Ranking"
           renderIcon={() => <Image source={require('../images/trophy.png')} />}
           onPress={() => this.setState({ selectedTab: 'ranking' })}>
-          <View/>
+          <RankingView/>
         </TabNavigator.Item>
       </TabNavigator>
     )

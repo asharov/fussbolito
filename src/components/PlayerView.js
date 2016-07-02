@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react'
 import {
   TextInput,
   Text,
+  TouchableOpacity,
   StyleSheet
 } from 'react-native'
 
@@ -9,7 +10,8 @@ const PlayerView = React.createClass({
   propTypes: {
     editable: PropTypes.bool.isRequired,
     name: PropTypes.string.isRequired,
-    onNameChange: PropTypes.func.isRequired
+    onNameChange: PropTypes.func.isRequired,
+    onTap: PropTypes.func.isRequired
   },
 
   render() {
@@ -22,7 +24,9 @@ const PlayerView = React.createClass({
       )
     } else {
       return (
-        <Text style={styles.player}>{this.props.name}</Text>
+        <TouchableOpacity style={styles.player} onPress={this.props.onTap}>
+          <Text>{this.props.name}</Text>
+        </TouchableOpacity>
       )
     }
   }

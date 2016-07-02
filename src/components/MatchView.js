@@ -7,7 +7,7 @@ import {
   TouchableOpacity
 } from 'react-native'
 
-import { START_GAME, UPDATE_PLAYER_NAME } from './../reducers/rootReducer'
+import { START_GAME, UPDATE_PLAYER_NAME, INCREASE_PLAYER_SCORE } from './../reducers/rootReducer'
 import PlayerView from './PlayerView'
 
 const MatchView = React.createClass({
@@ -31,10 +31,12 @@ const MatchView = React.createClass({
         <View style={{flex: 1, flexDirection: 'row'}}>
           <PlayerView editable={playerEditable}
                       name={team1.attacker.name}
-                      onNameChange={this.updatePlayerName('team1', 'attacker')}/>
+                      onNameChange={this.updatePlayerName('team1', 'attacker')}
+                      onTap={this.increasePlayerScore('team1', 'attacker')}/>
           <PlayerView editable={playerEditable}
                       name={team1.defender.name}
-                      onNameChange={this.updatePlayerName('team1', 'defender')}/>
+                      onNameChange={this.updatePlayerName('team1', 'defender')}
+                      onTap={this.increasePlayerScore('team1', 'defender')}/>
         </View>
         <View style={{alignItems: 'center'}}>
           <TouchableOpacity onPress={this.go}>
@@ -44,10 +46,12 @@ const MatchView = React.createClass({
         <View style={{flex: 1, flexDirection: 'row'}}>
           <PlayerView editable={playerEditable}
                       name={team2.attacker.name}
-                      onNameChange={this.updatePlayerName('team2', 'attacker')}/>
+                      onNameChange={this.updatePlayerName('team2', 'attacker')}
+                      onTap={this.increasePlayerScore('team2', 'attacker')}/>
           <PlayerView editable={playerEditable}
                       name={team2.defender.name}
-                      onNameChange={this.updatePlayerName('team2', 'defender')}/>
+                      onNameChange={this.updatePlayerName('team2', 'defender')}
+                      onTap={this.increasePlayerScore('team2', 'defender')}/>
         </View>
       </View>
     )
@@ -62,6 +66,15 @@ const MatchView = React.createClass({
         team: team,
         role: role,
         name: name
+      })
+    }
+  },
+  increasePlayerScore(team, role) {
+    const increase = this.props.increasePlayerScore
+    return function() {
+      increase({
+        team: team,
+        role: role
       })
     }
   }
@@ -88,7 +101,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     startGame: () => dispatch({type: START_GAME}),
-    updatePlayerName: (params) => dispatch(Object.assign({type: UPDATE_PLAYER_NAME}, params))
+    updatePlayerName: (params) => dispatch(Object.assign({type: UPDATE_PLAYER_NAME}, params)),
+    increasePlayerScore: (params) => dispatch(Object.assign({type: INCREASE_PLAYER_SCORE}, params))
   }
 }
 

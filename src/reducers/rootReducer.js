@@ -22,6 +22,7 @@ const initialState = {
 
 export const START_GAME = "START_GAME"
 export const UPDATE_PLAYER_NAME = "UPDATE_PLAYER_NAME"
+export const INCREASE_PLAYER_SCORE = "INCREASE_PLAYER_SCORE"
 
 function gameInProgressReducer(state = initialState.gameInProgress, action) {
   switch (action.type) {
@@ -34,13 +35,15 @@ function gameInProgressReducer(state = initialState.gameInProgress, action) {
 
 function playerReducer(teamAttr, playerAttr) {
   return function(state = initialState[teamAttr][playerAttr], action) {
+    if (action.team !== teamAttr || action.role !== playerAttr) {
+      return state
+    }
+
     switch (action.type) {
       case UPDATE_PLAYER_NAME:
-        if (action.team === teamAttr && action.role === playerAttr) {
-          return Object.assign({}, state, { name: action.name})
-        } else {
-          return state
-        }
+        return Object.assign({}, state, { name: action.name})
+      case INCREASE_PLAYER_SCORE:
+        return { ...state, score: state.score + 1 }
       default:
         return state
     }

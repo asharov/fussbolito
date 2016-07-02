@@ -10,6 +10,7 @@ const RankingView = React.createClass({
   getInitialState() {
     return {
       ranking: new ListView.DataSource({ rowHasChanged: (row1, row2) => row1 !== row2 })
+        .cloneWithRows(this.props.ranking)
     }
   },
   componentWillReceiveProps(props) {

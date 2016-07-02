@@ -29,15 +29,21 @@ const MatchView = React.createClass({
     return (
       <View style={{flex: 1}}>
         <View style={styles.teamContainer}>
-          <PlayerView editable={playerEditable}
-                      name={team1.attacker.name}
-                      onNameChange={this.updatePlayerName('team1', 'attacker')}
-                      onTap={this.increasePlayerScore('team1', 'attacker')}/>
-          <Text style={styles.teamScore}>{this.props.team1Score}</Text>
-          <PlayerView editable={playerEditable}
-                      name={team1.defender.name}
-                      onNameChange={this.updatePlayerName('team1', 'defender')}
-                      onTap={this.increasePlayerScore('team1', 'defender')}/>
+          <View style={styles.teamPlayersContainer}>
+            <PlayerView editable={playerEditable}
+                        name={team1.attacker.name}
+                        onNameChange={this.updatePlayerName('team1', 'attacker')}
+                        onTap={this.increasePlayerScore('team1', 'attacker')}/>
+            <PlayerView editable={playerEditable}
+                        name={team1.defender.name}
+                        onNameChange={this.updatePlayerName('team1', 'defender')}
+                        onTap={this.increasePlayerScore('team1', 'defender')}/>
+          </View>
+          <View style={styles.teamScoresContainer}>
+            <Text style={styles.playerScore}>{this.props.team1AttackerScore}</Text>
+            <Text style={styles.teamScore}>{this.props.team1Score}</Text>
+            <Text style={styles.playerScore}>{this.props.team1DefenderScore}</Text>
+          </View>
         </View>
         <View style={{alignItems: 'center'}}>
           <TouchableOpacity onPress={this.go}
@@ -46,15 +52,21 @@ const MatchView = React.createClass({
           </TouchableOpacity>
         </View>
         <View style={styles.teamContainer}>
-          <PlayerView editable={playerEditable}
-                      name={team2.attacker.name}
-                      onNameChange={this.updatePlayerName('team2', 'attacker')}
-                      onTap={this.increasePlayerScore('team2', 'attacker')}/>
-          <Text style={styles.teamScore}>{this.props.team2Score}</Text>
-          <PlayerView editable={playerEditable}
-                      name={team2.defender.name}
-                      onNameChange={this.updatePlayerName('team2', 'defender')}
-                      onTap={this.increasePlayerScore('team2', 'defender')}/>
+          <View style={styles.teamScoresContainer}>
+            <Text style={styles.playerScore}>{this.props.team2AttackerScore}</Text>
+            <Text style={styles.teamScore}>{this.props.team2Score}</Text>
+            <Text style={styles.playerScore}>{this.props.team2DefenderScore}</Text>
+          </View>
+          <View style={styles.teamPlayersContainer}>
+            <PlayerView editable={playerEditable}
+                        name={team2.attacker.name}
+                        onNameChange={this.updatePlayerName('team2', 'attacker')}
+                        onTap={this.increasePlayerScore('team2', 'attacker')}/>
+            <PlayerView editable={playerEditable}
+                        name={team2.defender.name}
+                        onNameChange={this.updatePlayerName('team2', 'defender')}
+                        onTap={this.increasePlayerScore('team2', 'defender')}/>
+          </View>
         </View>
         <View style={{flex: 1}} />
       </View>
@@ -87,7 +99,19 @@ const MatchView = React.createClass({
 const styles = StyleSheet.create({
   teamContainer: {
     flex: 1,
+    flexDirection: 'column',
+    alignItems: 'stretch',
+    marginTop: 30,
+    marginBottom: 30
+  },
+  teamPlayersContainer: {
+    flex: 1,
+    flexDirection: 'row'
+  },
+  teamScoresContainer: {
+    flex: 1,
     flexDirection: 'row',
+    justifyContent: 'center',
     alignItems: 'center'
   },
   roundButton: {
@@ -98,7 +122,14 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   teamScore: {
-    fontSize: 50
+    fontSize: 50,
+    fontWeight: 'bold'
+  },
+  playerScore: {
+    color: '#999',
+    fontSize: 24,
+    marginLeft: 50,
+    marginRight: 50
   }
 })
 
@@ -109,6 +140,10 @@ function mapStateToProps(state) {
     team2: state.team2,
     team1Score: state.team1.attacker.score + state.team1.defender.score,
     team2Score: state.team2.attacker.score + state.team2.defender.score,
+    team1AttackerScore: state.team1.attacker.score,
+    team1DefenderScore: state.team1.defender.score,
+    team2AttackerScore: state.team2.attacker.score,
+    team2DefenderScore: state.team2.defender.score,
     gameStartable: state.team1.attacker.name.length > 0 &&
                     state.team1.defender.name.length > 0 &&
                     state.team2.attacker.name.length > 0 &&

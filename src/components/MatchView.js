@@ -61,15 +61,15 @@ const MatchView = React.createClass({
           </View>
           <View style={styles.teamPlayersContainer}>
             <PlayerView editable={playerEditable}
-                        name={team2.attacker.name}
-                        role={'attacker'}
-                        onNameChange={this.updatePlayerName('team2', 'attacker')}
-                        onTap={this.increasePlayerScore('team2', 'attacker')}/>
-            <PlayerView editable={playerEditable}
                         name={team2.defender.name}
                         role={'defender'}
                         onNameChange={this.updatePlayerName('team2', 'defender')}
                         onTap={this.increasePlayerScore('team2', 'defender')}/>
+            <PlayerView editable={playerEditable}
+                        name={team2.attacker.name}
+                        role={'attacker'}
+                        onNameChange={this.updatePlayerName('team2', 'attacker')}
+                        onTap={this.increasePlayerScore('team2', 'attacker')}/>
           </View>
         </View>
         <View style={{flex: 1}} />

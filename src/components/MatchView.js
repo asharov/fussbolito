@@ -91,14 +91,14 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   roundButton: {
-    borderRadius: 30,
-    width: 60,
-    height: 60,
+    borderRadius: 50,
+    width: 100,
+    height: 100,
     backgroundColor: 'green',
     alignSelf: 'center'
   },
   teamScore: {
-    fontSize: 30,
+    fontSize: 50,
     fontWeight: 'bold'
   }
 })

@@ -38,15 +38,17 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     alignSelf: 'center',
     margin: 30,
-    height: 30,
+    height: 50,
     justifyContent: 'center'
   },
   input: {
     borderWidth: 1,
     padding: 5,
+    fontSize: 50
   },
   text: {
-    textAlign: 'center'
+    textAlign: 'center',
+    fontSize: 50
   },
   button: {
     backgroundColor: '#ccc'

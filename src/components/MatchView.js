@@ -19,8 +19,8 @@ const MatchView = React.createClass({
     startGame: PropTypes.func.isRequired
   },
 
-  buttonColor(gameInProgress) {
-    return gameInProgress ? 'red' : 'green'
+  buttonColor(gameStartable, gameInProgress) {
+    return !gameStartable ? '#ccc' : gameInProgress ? 'red' : 'green'
   },
   render() {
     const playerEditable = !this.props.gameInProgress
@@ -40,8 +40,9 @@ const MatchView = React.createClass({
                       onTap={this.increasePlayerScore('team1', 'defender')}/>
         </View>
         <View style={{alignItems: 'center'}}>
-          <TouchableOpacity onPress={this.go}>
-            <View style={[styles.roundButton, {backgroundColor: this.buttonColor(this.props.gameInProgress)}]}/>
+          <TouchableOpacity onPress={this.go}
+                            disabled={!this.props.gameStartable}>
+            <View style={[styles.roundButton, {backgroundColor: this.buttonColor(this.props.gameStartable, this.props.gameInProgress)}]}/>
           </TouchableOpacity>
         </View>
         <View style={styles.teamContainer}>
@@ -108,7 +109,11 @@ function mapStateToProps(state) {
     team1: state.team1,
     team2: state.team2,
     team1Score: state.team1.attacker.score + state.team1.defender.score,
-    team2Score: state.team2.attacker.score + state.team2.defender.score
+    team2Score: state.team2.attacker.score + state.team2.defender.score,
+    gameStartable: state.team1.attacker.name.length > 0 &&
+                    state.team1.defender.name.length > 0 &&
+                    state.team2.attacker.name.length > 0 &&
+                    state.team2.defender.name.length > 0
   }
 }
 

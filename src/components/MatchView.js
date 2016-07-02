@@ -32,10 +32,12 @@ const MatchView = React.createClass({
           <View style={styles.teamPlayersContainer}>
             <PlayerView editable={playerEditable}
                         name={team1.attacker.name}
+                        role={'attacker'}
                         onNameChange={this.updatePlayerName('team1', 'attacker')}
                         onTap={this.increasePlayerScore('team1', 'attacker')}/>
             <PlayerView editable={playerEditable}
                         name={team1.defender.name}
+                        role={'defender'}
                         onNameChange={this.updatePlayerName('team1', 'defender')}
                         onTap={this.increasePlayerScore('team1', 'defender')}/>
           </View>
@@ -60,10 +62,12 @@ const MatchView = React.createClass({
           <View style={styles.teamPlayersContainer}>
             <PlayerView editable={playerEditable}
                         name={team2.attacker.name}
+                        role={'attacker'}
                         onNameChange={this.updatePlayerName('team2', 'attacker')}
                         onTap={this.increasePlayerScore('team2', 'attacker')}/>
             <PlayerView editable={playerEditable}
                         name={team2.defender.name}
+                        role={'defender'}
                         onNameChange={this.updatePlayerName('team2', 'defender')}
                         onTap={this.increasePlayerScore('team2', 'defender')}/>
           </View>

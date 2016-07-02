@@ -10,6 +10,7 @@ const PlayerView = React.createClass({
   propTypes: {
     editable: PropTypes.bool.isRequired,
     name: PropTypes.string.isRequired,
+    role: PropTypes.string.isRequired,
     onNameChange: PropTypes.func.isRequired,
     onTap: PropTypes.func.isRequired
   },
@@ -19,6 +20,7 @@ const PlayerView = React.createClass({
       return (
         <TextInput style={[styles.player, styles.input]}
                   autoCorrect={false}
+                  placeholder={(this.props.role === 'attacker' ? 'Attack' : 'Defense')}
                   onChangeText={this.props.onNameChange}
                   value={this.props.name}/>
       )
@@ -44,7 +46,7 @@ const styles = StyleSheet.create({
   input: {
     borderWidth: 1,
     padding: 5,
-    fontSize: 50
+    fontSize: 40
   },
   text: {
     textAlign: 'center',

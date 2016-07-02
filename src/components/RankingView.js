@@ -61,7 +61,7 @@ function mapStateToProps(state) {
     if (scoreMap.hasOwnProperty(name)) {
       scoreList.push({
         name: name,
-        score: scoreMap[name].won / scoreMap[name].played
+        score: '' + Math.round(100 * scoreMap[name].won / scoreMap[name].played) + ' %'
       })
     }
   }

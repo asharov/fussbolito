@@ -23,7 +23,6 @@ const MatchView = React.createClass({
     return gameInProgress ? 'red' : 'green'
   },
   render() {
-    console.log(this.props)
     const playerEditable = !this.props.gameInProgress
     const team1 = this.props.team1
     const team2 = this.props.team2

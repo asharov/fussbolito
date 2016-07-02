@@ -17,7 +17,8 @@ function initialTeamState() {
 const initialState = {
   gameInProgress: false,
   team1: initialTeamState(),
-  team2: initialTeamState()
+  team2: initialTeamState(),
+  playedGames: []
 }
 
 export const START_GAME = "START_GAME"
@@ -50,7 +51,7 @@ function playerReducer(teamAttr, playerAttr) {
   }
 }
 
-export default combineReducers({
+const gameReducer = combineReducers({
   gameInProgress: gameInProgressReducer,
   team1: combineReducers({
     attacker: playerReducer('team1', 'attacker'),
@@ -59,5 +60,28 @@ export default combineReducers({
   team2: combineReducers({
     attacker: playerReducer('team2', 'attacker'),
     defender: playerReducer('team2', 'defender')
-  })
+  }),
+  playedGames: (state = initialState.playedGames) => state
 })
+
+function playedGame(state) {
+  return {
+    team1: state.team1,
+    team2: state.team2
+  }
+}
+
+export default function rootReducer(state = initialState, action) {
+  const nextState = gameReducer(state, action)
+  console.log(nextState);
+  team1Score = nextState.team1.attacker.score + nextState.team1.defender.score
+  team2Score = nextState.team2.attacker.score + nextState.team2.defender.score
+  if (team1Score === 6 || team2Score === 6) {
+    return {
+      ...initialState,
+      playedGames: [playedGame(nextState), ...nextState.playedGames]
+    }
+  } else {
+    return nextState
+  }
+}

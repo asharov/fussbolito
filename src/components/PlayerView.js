@@ -24,8 +24,8 @@ const PlayerView = React.createClass({
       )
     } else {
       return (
-        <TouchableOpacity style={styles.player} onPress={this.props.onTap}>
-          <Text>{this.props.name}</Text>
+        <TouchableOpacity style={[styles.player, styles.button]}  onPress={this.props.onTap}>
+          <Text style={styles.text}>{this.props.name}</Text>
         </TouchableOpacity>
       )
     }
@@ -38,11 +38,18 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     alignSelf: 'center',
     margin: 30,
-    height: 30
+    height: 30,
+    justifyContent: 'center'
   },
   input: {
     borderWidth: 1,
     padding: 5,
+  },
+  text: {
+    textAlign: 'center'
+  },
+  button: {
+    backgroundColor: '#ccc'
   }
 })
 

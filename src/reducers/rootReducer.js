@@ -21,6 +21,7 @@ const initialState = {
 }
 
 export const START_GAME = "START_GAME"
+export const UPDATE_PLAYER_NAME = "UPDATE_PLAYER_NAME"
 
 function gameInProgressReducer(state = initialState.gameInProgress, action) {
   switch (action.type) {
@@ -31,13 +32,14 @@ function gameInProgressReducer(state = initialState.gameInProgress, action) {
   }
 }
 
-function teamReducer(teamAttr) {
-  return function(state = initialState[teamAttr], action) {
+function playerReducer(teamAttr, playerAttr) {
+  return function(state = initialState[teamAttr][playerAttr], action) {
     switch (action.type) {
-      case START_GAME:
-        return {
-          attacker: Object.assign({}, state.attacker, { name: action[teamAttr].attackerName }),
-          defender: Object.assign({}, state.defender, { name: action[teamAttr].defenderName })
+      case UPDATE_PLAYER_NAME:
+        if (action[teamAttr] && action[teamAttr][playerAttr]) {
+          return Object.assign({}, state, { name: action[teamAttr][playerAttr].name})
+        } else {
+          return state
         }
       default:
         return state
@@ -47,6 +49,12 @@ function teamReducer(teamAttr) {
 
 export default combineReducers({
   gameInProgress: gameInProgressReducer,
-  team1: teamReducer('team1'),
-  team2: teamReducer('team2')
+  team1: combineReducers({
+    attacker: playerReducer('team1', 'attacker'),
+    defender: playerReducer('team1', 'defender')
+  }),
+  team2: combineReducers({
+    attacker: playerReducer('team2', 'attacker'),
+    defender: playerReducer('team2', 'defender')
+  })
 })

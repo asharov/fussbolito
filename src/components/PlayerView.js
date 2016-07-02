@@ -1,27 +1,44 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import {
   TextInput,
+  Text,
   StyleSheet
 } from 'react-native'
 
 const PlayerView = React.createClass({
+  propTypes: {
+    editable: PropTypes.bool.isRequired,
+    name: PropTypes.string.isRequired,
+    onNameChange: PropTypes.func.isRequired
+  },
+
   render() {
-    return (
-      <TextInput style={styles.playerInput}
-                autoCorrect={false}/>
-    )
+    if (this.props.editable) {
+      return (
+        <TextInput style={[styles.player, styles.input]}
+                  autoCorrect={false}
+                  onChangeText={this.props.onNameChange}
+                  value={this.props.name}/>
+      )
+    } else {
+      return (
+        <Text style={styles.player}>{this.props.name}</Text>
+      )
+    }
   }
 })
 
 const styles = StyleSheet.create({
-  playerInput: {
+  player: {
     flex: 1,
     borderColor: 'black',
     alignSelf: 'center',
-    borderWidth: 1,
-    padding: 5,
     margin: 30,
     height: 30
+  },
+  input: {
+    borderWidth: 1,
+    padding: 5,
   }
 })
 

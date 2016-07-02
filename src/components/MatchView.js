@@ -7,12 +7,14 @@ import {
   TouchableOpacity
 } from 'react-native'
 
-import { START_GAME } from './../reducers/rootReducer'
+import { START_GAME, UPDATE_PLAYER_NAME } from './../reducers/rootReducer'
 import PlayerView from './PlayerView'
 
 const MatchView = React.createClass({
   propTypes: {
     gameInProgress: PropTypes.bool.isRequired,
+    team1: PropTypes.object.isRequired,
+    team2: PropTypes.object.isRequired,
     startGame: PropTypes.func.isRequired
   },
 
@@ -21,11 +23,18 @@ const MatchView = React.createClass({
   },
   render() {
     console.log(this.props)
+    const playerEditable = !this.props.gameInProgress
+    const team1 = this.props.team1
+    const team2 = this.props.team2
     return (
       <View style={{flex: 1}}>
         <View style={{flex: 1, flexDirection: 'row'}}>
-          <PlayerView/>
-          <PlayerView/>
+          <PlayerView editable={playerEditable}
+                      name={team1.attacker.name}
+                      onNameChange={this.updatePlayerName('team1', 'attacker')}/>
+          <PlayerView editable={playerEditable}
+                      name={team1.defender.name}
+                      onNameChange={this.updatePlayerName('team1', 'defender')}/>
         </View>
         <View style={{alignItems: 'center'}}>
           <TouchableOpacity onPress={this.go}>
@@ -33,23 +42,30 @@ const MatchView = React.createClass({
           </TouchableOpacity>
         </View>
         <View style={{flex: 1, flexDirection: 'row'}}>
-          <PlayerView/>
-          <PlayerView/>
+          <PlayerView editable={playerEditable}
+                      name={team2.attacker.name}
+                      onNameChange={this.updatePlayerName('team2', 'attacker')}/>
+          <PlayerView editable={playerEditable}
+                      name={team2.defender.name}
+                      onNameChange={this.updatePlayerName('team2', 'defender')}/>
         </View>
       </View>
     )
   },
   go() {
-    this.props.startGame({
-      team1: {
-        attackerName: 'A1',
-        defenderName: 'D1'
-      },
-      team2: {
-        attackerName: 'A2',
-        defenderName: 'D2'
-      }
-    })
+    this.props.startGame()
+  },
+  updatePlayerName(teamAttr, roleAttr) {
+    const update = this.props.updatePlayerName
+    return function(name) {
+      update({
+        [teamAttr]: {
+          [roleAttr]: {
+            name: name
+          }
+        }
+      })
+    }
   }
 })
 
@@ -73,7 +89,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    startGame: (params) => dispatch(Object.assign({type: START_GAME}, params))
+    startGame: () => dispatch({type: START_GAME}),
+    updatePlayerName: (params) => dispatch(Object.assign({type: UPDATE_PLAYER_NAME}, params))
   }
 }
 

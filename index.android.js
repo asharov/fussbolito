@@ -6,24 +6,21 @@
 
 import React, { Component } from 'react';
 import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View
+  AppRegistry
 } from 'react-native';
 import {Provider} from 'react-redux'
 
-import MatchView from './src/components/MatchView'
 import store from './src/store'
+import RootView from './src/components/RootView'
 
-class Fussbolito extends Component {
+const Fussbolito = React.createClass({
   render() {
     return (
       <Provider store={store}>
-        <MatchView/>
+        <RootView />
       </Provider>
     );
   }
-}
+})
 
 AppRegistry.registerComponent('Fussbolito', () => Fussbolito);

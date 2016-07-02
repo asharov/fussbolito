@@ -3,8 +3,31 @@ import { connect } from 'react-redux'
 import {
   ListView,
   View,
-  Text
+  Text,
+  StyleSheet
 } from 'react-native'
+
+const styles = StyleSheet.create({
+  rankingList: {
+    marginTop: 40
+  },
+  rankingRow: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    height: 100,
+    paddingLeft: 40,
+    paddingRight: 40
+  },
+  playerName: {
+    fontSize: 40
+  },
+  playerScore: {
+    fontSize: 40,
+    color: '#666'
+  }
+})
 
 const RankingView = React.createClass({
   getInitialState() {
@@ -22,16 +45,17 @@ const RankingView = React.createClass({
   },
   renderRow(item) {
     return (
-      <View style={{flex: 1, flexDirection: 'row'}}>
-        <Text>{item.name}</Text>
-        <Text>{item.score}</Text>
+      <View style={styles.rankingRow}>
+        <Text style={styles.playerName}>{item.name}</Text>
+        <Text style={styles.playerScore}>{item.score}</Text>
       </View>
     )
   },
   render() {
     return (
       <ListView dataSource={this.state.ranking}
-                renderRow={this.renderRow}/>
+                renderRow={this.renderRow}
+                style={styles.rankingList}/>
     )
   }
 })

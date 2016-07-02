@@ -37,25 +37,31 @@ const RankingView = React.createClass({
 })
 
 function mapStateToProps(state) {
-  function addToScoreMap(player, scoreMap) {
+  function addToScoreMap(player, won, scoreMap) {
     if (!scoreMap[player.name]) {
-      scoreMap[player.name] = 0
+      scoreMap[player.name] = {
+        played: 0,
+        won: 0
+      }
     }
-    scoreMap[player.name] += player.score
+    scoreMap[player.name].played += 1
+    scoreMap[player.name].won += won
   }
   let scoreMap = {}
   for (playedGame of state.playedGames) {
-    addToScoreMap(playedGame.team1.attacker, scoreMap)
-    addToScoreMap(playedGame.team1.defender, scoreMap)
-    addToScoreMap(playedGame.team2.attacker, scoreMap)
-    addToScoreMap(playedGame.team2.defender, scoreMap)
+    let team1Win = playedGame.team1.attacker.score + playedGame.team1.defender.score >
+                  playedGame.team2.attacker.score + playedGame.team2.defender.score
+    addToScoreMap(playedGame.team1.attacker, team1Win, scoreMap)
+    addToScoreMap(playedGame.team1.defender, team1Win, scoreMap)
+    addToScoreMap(playedGame.team2.attacker, !team1Win, scoreMap)
+    addToScoreMap(playedGame.team2.defender, !team1Win, scoreMap)
   }
   let scoreList = []
   for (let name in scoreMap) {
     if (scoreMap.hasOwnProperty(name)) {
       scoreList.push({
         name: name,
-        score: scoreMap[name]
+        score: scoreMap[name].won / scoreMap[name].played
       })
     }
   }

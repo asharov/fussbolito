@@ -98,8 +98,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   teamScore: {
-    fontSize: 50,
-    fontWeight: 'bold'
+    fontSize: 50
   }
 })
 

@@ -55,9 +55,9 @@ const MatchView = React.createClass({
         </View>
         <View style={styles.teamContainer}>
           <View style={styles.teamScoresContainer}>
-            <Text style={styles.playerScore}>{this.props.team2AttackerScore}</Text>
-            <Text style={styles.teamScore}>{this.props.team2Score}</Text>
             <Text style={styles.playerScore}>{this.props.team2DefenderScore}</Text>
+            <Text style={styles.teamScore}>{this.props.team2Score}</Text>
+            <Text style={styles.playerScore}>{this.props.team2AttackerScore}</Text>
           </View>
           <View style={styles.teamPlayersContainer}>
             <PlayerView editable={playerEditable}

@@ -617,6 +617,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.futurice.Fussbolito;
 				PRODUCT_NAME = Fussbolito;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -637,6 +638,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.futurice.Fussbolito;
 				PRODUCT_NAME = Fussbolito;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
